@@ -99,8 +99,8 @@ try:
     r = requests.post(
         airflow_trigger_creds.get('url').format(dag_name=workflow),
         data=json.dumps("{}".format('{}')),
-        auth=("{}".format(airflow_trigger_creds.get('user')), "{}".format(airflow_trigger_creds.get('pw')))
-    )
+        auth=("{}".format(airflow_trigger_creds.get('user')), "{}".format(airflow_trigger_creds.get('pw'))), 
+    timeout=60)
     print("Downstream process has been triggered, status code: {}".format(r.status_code))
 except Exception as e:
     print("Triggering downstream process failed, exiting")
