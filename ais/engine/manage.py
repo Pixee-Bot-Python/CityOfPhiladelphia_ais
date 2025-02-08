@@ -3,6 +3,7 @@ import sys
 import subprocess
 from flask_script import Manager
 from ais import app
+from security import safe_command
 
 manager = Manager(usage='Perform engine operations')
 
@@ -26,7 +27,7 @@ def run(script):
         
     for path in paths:
         try:
-            result = subprocess.call([sys.executable, path], env=os.environ.copy())
+            result = safe_command.run(subprocess.call, [sys.executable, path], env=os.environ.copy())
         except SystemExit as e:
             result = e.code
         sys.exit(result or 0)
