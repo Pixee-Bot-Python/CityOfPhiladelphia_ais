@@ -7,7 +7,7 @@ branch = os.environ.get('TRAVIS_BRANCH', '')
 
 # Load the eb configuration
 with open('.elasticbeanstalk/config.yml') as cfgfile:
-    cfg = yaml.load(cfgfile)
+    cfg = yaml.load(cfgfile, Loader=yaml.SafeLoader)
 
 # If the branch is not configured, exit with an error code
 branchcfg = cfg.get('branch-defaults', {}).get(branch)
