@@ -5,6 +5,7 @@ from datetime import datetime
 import requests
 import sys, os
 import click
+from security import safe_requests
 
 
 @click.command()
@@ -59,9 +60,9 @@ def main(proxy, dbpass, gatekeeper_key):
             if proxy:
                 proxies = { 'http': proxy,
                         'htps': proxy }
-                r = requests.get(url, proxies=proxies, timeout=5)
+                r = safe_requests.get(url, proxies=proxies, timeout=5)
             else:
-                r = requests.get(url, timeout=5)
+                r = safe_requests.get(url, timeout=5)
             if r.status_code:
                 if int(r.status_code) != 200:
                     print(f"Got a non-200 status code for {url}!: {r.status_code}")
